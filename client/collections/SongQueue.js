@@ -14,12 +14,20 @@ var SongQueue = Songs.extend({
       }
     }, this);
     this.on('dequeue', function(song){
-      this.remove(song);
+      if(song === this.at(0)){
+        song.stop();
+        this.remove(song);
+        this.playFirst();
+      } else {
+        this.remove(song);
+      }
     }, this);
   },
 
   playFirst: function(){
-    this.at(0).play();
+    if (this.length !== 0){
+      this.at(0).play();
+    }
   }
 
 });
