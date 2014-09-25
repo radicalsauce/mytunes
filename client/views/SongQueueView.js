@@ -7,7 +7,7 @@ var SongQueueView = Backbone.View.extend({
     this.render();
     this.listenTo(this.collection, 'add', function(){
       this.appendSong(this.collection.at(this.collection.length - 1));
-    }, this);
+    });
     this.listenTo(this.collection, 'remove', function(){
       this.render();
     }, this);
@@ -20,7 +20,7 @@ var SongQueueView = Backbone.View.extend({
 
     this.$el.html('<th>Song Queue</th>').append(
       this.collection.map(function(song){
-        return new SongQueueView({model: song}).render();
+        return new SongQueueEntryView({model: song}).render();
       })
     );
     // return this.$el;  <-- this code came w/ the example, not sure if needed
@@ -29,11 +29,6 @@ var SongQueueView = Backbone.View.extend({
   appendSong: function(song){
     var newSongView = new SongQueueEntryView({model: song});
     this.$el.append(newSongView.render());
-  }//,
-
-  // removeSong: function(song){
-  //   var newSongView = new SongQueueEntryView({model: song});
-  //   this.$el.detach(newSongView.render());
-  // }
+  }
 
 });
